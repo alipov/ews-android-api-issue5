@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import it.sephiroth.android.library.tooltip.Tooltip;
+
 public class MainActivity extends Activity {
 
     @Override
@@ -16,6 +18,7 @@ public class MainActivity extends Activity {
         System.setProperty("android.javax.xml.stream.XMLInputFactory", "com.sun.xml.stream.ZephyrParserFactory");
         System.setProperty("android.javax.xml.stream.XMLOutputFactory", "com.sun.xml.stream.ZephyrWriterFactory");
         System.setProperty("android.javax.xml.stream.XMLEventFactory", "com.sun.xml.stream.events.ZephyrEventFactory");
+        showToolTip();
     }
 
     public void loadClass(View view) {
@@ -40,5 +43,16 @@ public class MainActivity extends Activity {
             Toast.makeText(this, "Exception", Toast.LENGTH_LONG).show();
             throw new RuntimeException(x);
         }
+    }
+
+    private void showToolTip(){
+        Tooltip.make(MainActivity.this,
+                new Tooltip.Builder(101)
+                        .anchor(getWindow().getDecorView(), Tooltip.Gravity.BOTTOM)
+                        .activateDelay(800)
+                        .showDelay(300)
+                        .text("Now click the button")
+                        .build()
+        ).show();
     }
 }
